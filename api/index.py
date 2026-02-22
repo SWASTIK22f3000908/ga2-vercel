@@ -1,13 +1,12 @@
-from fastapi import FastAPI, Request
+# api/index.py
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import json
-import os
-import statistics
 import math
 
 app = FastAPI()
 
-# Enable CORS for POST from any origin
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,13 +14,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load telemetry data
 with open("q-vercel-latency.json") as f:
     telemetry = json.load(f)
 
-@app.post("/api/analytics")
-async def analytics(request: Request):
-    body = await request.json()
+@app.post("/")
+async def analytics(body: dict):
     regions = body["regions"]
     threshold = body["threshold_ms"]
 
