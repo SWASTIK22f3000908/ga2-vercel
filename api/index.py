@@ -26,7 +26,7 @@ async def analytics(body: dict):
         region_data = [r for r in telemetry if r["region"] == region]
 
         latencies = [r["latency_ms"] for r in region_data]
-        uptimes = [r["uptime"] for r in region_data]
+        uptimes = [r["uptime_pct"] for r in region_data]
 
         if not latencies:
             continue
